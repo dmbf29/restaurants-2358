@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root to: "restaurants#index"
   # http_verb '/path', to: 'controller_name#action', as: :prefix (aka nickname of the path)
   # PREFIX -> only refers to the path, not the http verb
   # Read all -> index
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
   patch "/restaurants/:id", to: "restaurants#update"
 
   # Destroy a restaurant
+  delete "restaurants/:id", to: "restaurants#destroy"
 end
 
 # We use the prefix when we build links and forms

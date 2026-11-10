@@ -48,6 +48,13 @@ class RestaurantsController < ApplicationController
     end
   end
 
+  def destroy
+    @restaurant = Restaurant.find(params[:id])
+    @restaurant.destroy
+    # No need for app/views/restaurants/destroy.html.erb
+    redirect_to restaurants_path, status: :see_other
+  end
+
   private
 
   def restaurant_params
@@ -55,6 +62,5 @@ class RestaurantsController < ApplicationController
     # STRONG PARAMS -> whitelist the attributes the user can give
     # filtering the data the user sends from the form
     params.require(:restaurant).permit(:name, :rating, :address)
-    raise
   end
 end

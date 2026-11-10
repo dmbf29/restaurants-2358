@@ -4,4 +4,10 @@
   <p><%= "*" * @restaurant.rating %></p>
   <%#= link_to "Text you see", prefix_path  %>
   <%= link_to 'Back', restaurants_path, class: 'btn btn-secondary'  %>
+  <%= link_to edit_restaurant_path(@restaurant), class: 'btn btn-secondary' do  %>
+    <i class="fa-solid fa-pen-to-square"></i>
+  <% end %>
+  <%= link_to restaurants_path(@restaurant), class: 'btn btn-secondary', data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
+    <i class="fa-solid fa-trash"></i>
+  <% end %>
 </div>
