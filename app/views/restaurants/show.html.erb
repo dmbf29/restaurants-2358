@@ -1,0 +1,7 @@
+<div class="container">
+  <h1><%= @restaurant.name %></h1>
+  <p><%= @restaurant.address %></p>
+  <p><%= "*" * @restaurant.rating %></p>
+  <%#= link_to "Text you see", prefix_path  %>
+  <%= link_to 'Back', restaurants_path, class: 'btn btn-secondary'  %>
+</div>

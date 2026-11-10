@@ -1,14 +1,28 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  # http_verb '/path', to: 'controller_name#action', as: :prefix (aka nickname of the path)
+  # PREFIX -> only refers to the path, not the http verb
+  # Read all -> index
+  get "/restaurants", to: "restaurants#index", as: :restaurants
+  # Create a restaurant
+  # we need a page for the form
+  get "/restaurants/new", to: "restaurants#new", as: :new_restaurant
+  # we need a place to send the form data
+  post "/restaurants", to: "restaurants#create" # already has a prefix
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
+  # See details about one restaurant -> show
+  get "/restaurants/:id", to: "restaurants#show", as: :restaurant
 
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+  # Update a restaurant
+  # we need a page for the form
+  get "/restaurants/:id/edit", to: "restaurants#edit", as: :edit_restaurant
+  # we need a place to send the form data
+  patch "/restaurants/:id", to: "restaurants#update"
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  # Destroy a restaurant
 end
+
+# We use the prefix when we build links and forms
+# link_to "All", restaurants_path # GET
+# form restaurants_path # POST
+# link_to "Sukiya", restaurant_path(restaurant) # GET
+# form restaurant_path(restaurant) # PATCH
