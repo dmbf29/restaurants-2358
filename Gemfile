@@ -63,4 +63,10 @@ group :test do
 end
 
 # Custom Added
+gem "autoprefixer-rails"
+gem "bootstrap", "~> 5.3"
+gem "faker"
+gem "font-awesome-sass", "~> 6.1"
 gem "simple_form"
+gem "sassc-rails"
+gem "sprockets-rails"

@@ -1,18 +1,4 @@
-<div class="container">
+<div class="container my-5">
   <h1>Edit a Restaurant</h1>
-  <!-- <form action="<%= restaurants_path %>" method="post">
-    <label for="name">Name</label>
-    <input type="text" name="name">
-    <input type="number" name="rating" class="form-control">
-    <input type="submit" value="Add">
-  </form> -->
-  <%# Simple Form -> help build forms faster and easier  %>
-  <%# sf + tab %>
-  <%# I need to give it an empty instance of a restaurant %>
-  <%= simple_form_for @restaurant do |f| %>
-    <%= f.input :name %>
-    <%= f.input :rating %>
-    <%= f.input :address %>
-    <%= f.submit "Update", class: 'btn btn-primary mt-2' %>
-  <% end %>
+  <%= render 'restaurants/form', restaurant: @restaurant  %>
 </div>

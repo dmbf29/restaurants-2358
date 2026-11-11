@@ -1,5 +1,18 @@
 class RestaurantsController < ApplicationController
+
+  def top
+    @restaurants = Restaurant.where(rating: 5)
+    render 'index'
+    # render top.html.erb
+  end
+
+  # /restaurants/1/navigate
+  def navigate
+    @restaurant = Restaurant.find(params[:id])
+  end
+
   # '/restaurants'
+
   def index
     # load restaurants from the db and pass to the view
     @restaurants = Restaurant.all
