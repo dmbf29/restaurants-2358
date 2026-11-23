@@ -1,8 +1,9 @@
 class RestaurantsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [ :index, :show ]
 
   def top
     @restaurants = Restaurant.where(rating: 5)
-    render 'index'
+    render "index"
     # render top.html.erb
   end
 
