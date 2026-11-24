@@ -1,4 +1,5 @@
 class RestaurantsController < ApplicationController
+  # You don't have to be logged in for these actions:
   skip_before_action :authenticate_user!, only: [ :index, :show ]
 
   def top
@@ -16,22 +17,28 @@ class RestaurantsController < ApplicationController
 
   def index
     # load restaurants from the db and pass to the view
-    @restaurants = Restaurant.all
+    # @restaurants = Restaurant.all
+    # @restaurants = current_user.restaurants
+    @restaurants = policy_scope(Restaurant) # specify which restaurants we want in the policy
     # render index.html.erb
   end
 
   def show
     @restaurant = Restaurant.find(params[:id])
-    # render show.html.erb
+    # Check the policy and see if the user can #show?
+    authorize @restaurant
   end
 
   def new
     # this is just for the form
     @restaurant = Restaurant.new
+    authorize @restaurant
   end
 
   def create
     @restaurant = Restaurant.new(restaurant_params)
+    @restaurant.user = current_user
+    authorize @restaurant
     if @restaurant.save
       # go to the show page
       redirect_to restaurant_path(@restaurant)
@@ -46,12 +53,14 @@ class RestaurantsController < ApplicationController
   def edit
     # this is just for the form
     @restaurant =  Restaurant.find(params[:id])
+    authorize @restaurant # this restaurant is our "record"
   end
 
   # WE CANT ACCESS THIS VIA A URL -> SUBMIT A FORM
   # patch /restaurants/3
   def update
     @restaurant = Restaurant.find(params[:id])
+    authorize @restaurant
     if @restaurant.update(restaurant_params)
       # go to the show page
       redirect_to restaurant_path(@restaurant)
@@ -64,6 +73,7 @@ class RestaurantsController < ApplicationController
 
   def destroy
     @restaurant = Restaurant.find(params[:id])
+    authorize @restaurant
     @restaurant.destroy
     # No need for app/views/restaurants/destroy.html.erb
     redirect_to restaurants_path, status: :see_other
